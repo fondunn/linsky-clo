@@ -3,12 +3,15 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 25px;
+    background-color: rgb(233, 233, 233);
   
     .logo-container {
-      height: 100%;
-      width: 70px;
-      padding: 25px;
+        
+      height: 39px;
+      width: 50px;
+      padding-left: 1rem;
     }
   
     .options {
@@ -20,6 +23,7 @@
   
       .option {
         padding: 10px 15px;
+        cursor: pointer;
       }
     }
   }
