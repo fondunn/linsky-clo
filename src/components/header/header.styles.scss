@@ -12,6 +12,10 @@
       height: 39px;
       width: 50px;
       padding-left: 1rem;
+
+      & svg {
+          height: 100%
+      }
     }
   
     .options {
