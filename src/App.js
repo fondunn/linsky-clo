@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions'
 import HomePage from './pages/homepage/homepage.component'
@@ -39,6 +39,7 @@ class App extends React.Component {
     this.unsubscribeFromAuth();
   }
 
+  
 
   render() {
     return (
@@ -46,17 +47,21 @@ class App extends React.Component {
         <Header />
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/shop' element={<ShopPage />} />
-          <Route path='/signin' element={<SignInAndSignUpPage />} />
+          <Route path='shop' element={<ShopPage />} />
+          {
+            this.props.currentUser ? <Route path='signin' element={<Navigate replace to='/' />} /> : <Route path='signin' element={<SignInAndSignUpPage />} />
+          }
+          
         </Routes>
-
       </div>
     )
   }
 }
 
+const mapStateToProps = ({ user }) => ({currentUser: user.currentUser})
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
