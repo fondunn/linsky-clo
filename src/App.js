@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions'
 
@@ -49,17 +49,22 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/shop' element={<ShopPage />} />
-          <Route path='/checkout' element={<CheckoutPage />} />
-          {
-            this.props.currentUser ? 
-            <Route path='/signin' element={<Navigate replace to='/' />} /> 
-            : 
-            <Route path='/signin' element={<SignInAndSignUpPage />} />
-          }
-        </Routes>
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
+          <Route
+            exact
+            path='/signin'
+            render={() =>
+              this.props.currentUser ? (
+                <Redirect to='/' />
+              ) : (
+                <SignInAndSignUpPage />
+              )
+            }
+          />
+        </Switch>
       </div>
     )
   }
